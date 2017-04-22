@@ -12,7 +12,8 @@ public enum JumpStatus {
 public enum ControlStatus {
   Normal,
   HitStun,
-  Launch
+  Launch,
+  LaunchReturn
 }
 
 public class Character : MonoBehaviour {
@@ -70,6 +71,8 @@ public class Character : MonoBehaviour {
       speed = 0;
     }*/
     //time for "character" collision
+    Debug.Log("triggered");
+    this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
     this.controlStatus = ControlStatus.HitStun;
     StartCoroutine("LaunchStun");
@@ -77,8 +80,10 @@ public class Character : MonoBehaviour {
 
   public void Jump() {
     this.jumpStatus = JumpStatus.Rising;
+    this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Jump();
     StartCoroutine("Rising");
     //maybe do an initiate-jump animation here
+    //camera control
   }
 
   IEnumerator LaunchStun() {
