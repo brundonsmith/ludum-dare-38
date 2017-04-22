@@ -240,7 +240,7 @@ MonoBehaviour:
   jumpHeight: 0
   speed: 0
   maxSpeed: 0
-  character: {fileID: 0}
+  character: {fileID: 4628983779461754}
 --- !u!114 &114615311231131648
 MonoBehaviour:
   m_ObjectHideFlags: 1
