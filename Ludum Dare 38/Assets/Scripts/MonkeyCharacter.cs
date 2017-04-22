@@ -8,16 +8,12 @@ public class MonkeyCharacter : Character {
 	void Start () {
         speed = 0;
         moveAcceleration = .001F;
-	}
+        character = this.transform.Find("Monkey").transform;
+  }
 
 	// Update is called once per frame
 	void Update () {
         speed += moveAcceleration;
         this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
-    }
-
-    void Jump()
-    {
-
     }
 }

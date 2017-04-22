@@ -10,9 +10,10 @@ public class Character : MonoBehaviour {
   public float jumpHeight;
     public float speed;
   private bool rising, hanging, falling;
+  public Transform character;
 
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  void Start () {
     this.GetComponent<Rigidbody>().centerOfMass = this.GetComponent<Transform>().position;
 	}
 
@@ -31,6 +32,6 @@ public class Character : MonoBehaviour {
 
   public void Jump()
   {
-    this.GetComponent<Rigidbody>().transform.position += this.GetComponent<Rigidbody>().transform.TransformDirection(Vector3.up);
+    character.GetComponent<Rigidbody>().transform.position += character.GetComponent<Rigidbody>().transform.TransformDirection(Vector3.up);
   }
 }
