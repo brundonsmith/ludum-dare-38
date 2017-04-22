@@ -86,7 +86,11 @@ public class PlayerController : MonoBehaviour {
 
           Vector3 directionFromCamera = (obstaclePosition - this.camera.GetComponent<Transform>().position).normalized;
           newIcon.GetComponent<Transform>().position = obstaclePosition - directionFromCamera * obstacleViewportPosition.z * 0.7f;
-          newIcon.layer = LayerMask.NameToLayer("Player " + this.player.ToString() + " Only");
+          int playerLayer = LayerMask.NameToLayer("Player " + this.player.ToString() + " Only");
+          newIcon.layer = playerLayer;
+          foreach(Transform child in newIcon.GetComponent<Transform>()) {
+            child.gameObject.layer = playerLayer;
+          }
           newIcon.GetComponent<Billboard>().camera = this.camera;
 
           this.icons[obstacle.gameObject] = newIcon;
