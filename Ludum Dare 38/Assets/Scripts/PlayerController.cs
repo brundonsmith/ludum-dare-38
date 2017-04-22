@@ -33,12 +33,25 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
     if (this.GetComponent<Character>().controlStatus == ControlStatus.Normal) {
 
-      if (Input.GetKey(KeyCode.LeftArrow)) {
-        this.GetComponent<Character>().TurnLeft();
-      } else if (Input.GetKey(KeyCode.RightArrow)) {
-        this.GetComponent<Character>().TurnRight();
-      } else if (Input.GetKeyDown(KeyCode.Space)) {
-        this.GetComponent<Character>().Jump();
+      switch(this.player) {
+        case Player.One:
+          if (Input.GetKey(KeyCode.LeftArrow)) {
+            this.GetComponent<Character>().TurnLeft();
+          } else if (Input.GetKey(KeyCode.RightArrow)) {
+            this.GetComponent<Character>().TurnRight();
+          } else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            this.GetComponent<Character>().Jump();
+          }
+          break;
+        case Player.Two:
+          if (Input.GetKey(KeyCode.A)) {
+            this.GetComponent<Character>().TurnLeft();
+          } else if (Input.GetKey(KeyCode.D)) {
+            this.GetComponent<Character>().TurnRight();
+          } else if (Input.GetKeyDown(KeyCode.W)) {
+            this.GetComponent<Character>().Jump();
+          }
+          break;
       }
 
     }

@@ -181,7 +181,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593518642413740}
-  m_Mesh: {fileID: 4300000, guid: baed52fb8c3594768a8fd6734efe3492, type: 3}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54565063517081486
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -236,6 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: 0
   camera: {fileID: 20603504117222610}
+  obstacleIconPrefab: {fileID: 4538865376254974, guid: f709e9c4936894007974ad42fcc23db4,
+    type: 2}
 --- !u!114 &114787357898649142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def752521ca2b41668aba55798363829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAcceleration: 0.001
+  moveAcceleration: 0.01
   moveMaxSpeed: 2
   moveResilience: 1
   turnSpeed: 1

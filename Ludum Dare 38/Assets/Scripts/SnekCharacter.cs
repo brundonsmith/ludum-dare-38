@@ -11,6 +11,7 @@ public class SnekCharacter : Character {
 
 	// Update is called once per frame
 	void Update () {
+    base.Update();
 
 	}
 }
