@@ -32,6 +32,6 @@ public class Character : MonoBehaviour {
 
   public void Jump()
   {
-    character.GetComponent<Rigidbody>().transform.position += character.GetComponent<Rigidbody>().transform.TransformDirection(Vector3.up);
+    character.GetComponent<Transform>().position += character.GetComponent<Transform>().up;
   }
 }
