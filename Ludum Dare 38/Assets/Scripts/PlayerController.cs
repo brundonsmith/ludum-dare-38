@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour {
       this.GetComponent<Character>().TurnLeft();
     } else if(Input.GetKey(KeyCode.RightArrow)) {
       this.GetComponent<Character>().TurnRight();
-    } else if(Input.GetKey(KeyCode.Space))
-        {
-            this.GetComponent<Character>().Jump();
-        }
+    } else if(Input.GetKeyDown(KeyCode.Space))
+    {
+      this.GetComponent<Character>().Jump();
+    }
 	}
 }

@@ -8,11 +8,11 @@ public class MonkeyCharacter : Character {
 	void Start () {
     speed = 0;
     moveAcceleration = .001F;
+    maxSpeed = 2;
   }
-
-	// Update is called once per frame
-	void Update () {
-    speed += moveAcceleration;
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
+  
+  // Update is called once per frame
+  void Update () {
+    base.Update();
   }
 }
