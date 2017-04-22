@@ -24,27 +24,27 @@ public class GameManager : MonoBehaviour {
       playerTwo.GetComponent<Transform>().position = Vector3.zero;
       playerTwo.GetComponent<PlayerController>().player = Player.Two;
 
-      playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0, 1, 0.5f);
-      playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
+      playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
+      playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 1, 0.5f);
 
       if(numPlayers > 2) {
         GameObject playerThree = GameObject.Instantiate(playerThreeCharacter.gameObject);
         playerThree.GetComponent<Transform>().position = Vector3.zero;
         playerThree.GetComponent<PlayerController>().player = Player.Three;
 
-        playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0, 1, 0.5f);
-        playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-        playerThree.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+        playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
+        playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 0.5f, 0.5f);
+        playerThree.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
 
         if(numPlayers > 3) {
           GameObject playerFour = GameObject.Instantiate(playerFourCharacter.gameObject);
           playerFour.GetComponent<Transform>().position = Vector3.zero;
           playerFour.GetComponent<PlayerController>().player = Player.Four;
 
-          playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0, 0.5f, 0.5f);
-          playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
-          playerThree.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-          playerFour.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+          playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+          playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+          playerThree.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 0.5f, 0.5f);
+          playerFour.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
         }
       }
     }

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 95493210922704744}
   - component: {fileID: 136560708733151018}
   - component: {fileID: 114731977975911658}
+  - component: {fileID: 114508633722498852}
   m_Layer: 0
   m_Name: Building 1
   m_TagString: Untagged
@@ -100,6 +101,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114508633722498852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1016472463856912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86e0992ad8ef4edaa8a56bd9eeaa751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114731977975911658
 MonoBehaviour:
   m_ObjectHideFlags: 1
