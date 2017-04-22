@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour {
 
   public Player player = Player.One;
   public Camera camera;
+  public Transform obstacleIconPrefab;
+
+  private Dictionary<GameObject, GameObject> icons = new Dictionary<GameObject, GameObject>();
 
 	// Use this for initialization
 	void Start () {
@@ -39,5 +42,43 @@ public class PlayerController : MonoBehaviour {
       }
 
     }
+
+
+    this.UpdateIcons();
 	}
+
+  void UpdateIcons () {
+    // detect relevant objects within camera frustrum
+    // for each, create an icon if it doesn't have one
+    // place as overlay sprite on the screen
+    // for position,
+    //    take object coordinate,
+    //    rotate to horizon based on current movement direction,
+    //    then get camera coordinate
+
+    foreach(Obstacle obstacle in GameObject.FindObjectsOfType<Obstacle>()) {
+      Vector3 obstaclePosition = obstacle.GetComponent<Transform>().position;
+      Vector3 obstacleViewportPosition = this.camera.WorldToViewportPoint(obstaclePosition);
+      if(obstacleViewportPosition.x > 0
+          && obstacleViewportPosition.x < 1
+          && obstacleViewportPosition.y > 0
+          && obstacleViewportPosition.y < 1
+          && obstacleViewportPosition.z > 0) {
+
+        if(this.icons.ContainsKey(obstacle.gameObject)) {
+          Vector3 directionFromCamera = (obstaclePosition - this.camera.GetComponent<Transform>().position).normalized;
+          this.icons[obstacle.gameObject].GetComponent<Transform>().position = obstaclePosition - directionFromCamera * obstacleViewportPosition.z * 0.7f;
+        } else {
+          GameObject newIcon = GameObject.Instantiate(this.obstacleIconPrefab.gameObject);
+
+          Vector3 directionFromCamera = (obstaclePosition - this.camera.GetComponent<Transform>().position).normalized;
+          newIcon.GetComponent<Transform>().position = obstaclePosition - directionFromCamera * obstacleViewportPosition.z * 0.7f;
+          newIcon.layer = LayerMask.NameToLayer("Player " + this.player.ToString() + " Only");
+          newIcon.GetComponent<Billboard>().camera = this.camera;
+
+          this.icons[obstacle.gameObject] = newIcon;
+        }
+      }
+    }
+  }
 }
