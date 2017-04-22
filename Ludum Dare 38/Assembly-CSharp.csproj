@@ -47,7 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Character.cs" />
+     <Compile Include="Assets\Scripts\MonkeyCharacter.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SalamanderCharacter.cs" />
+     <Compile Include="Assets\Scripts\SnekCharacter.cs" />
+     <Compile Include="Assets\Scripts\SquidCharacter.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

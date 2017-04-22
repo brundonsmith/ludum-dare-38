@@ -20,10 +20,10 @@ public class Character : MonoBehaviour {
 	}
 
   public void TurnLeft() {
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(-1f, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(-1 * turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
   public void TurnRight() {
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(1f, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(1 * turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 }
