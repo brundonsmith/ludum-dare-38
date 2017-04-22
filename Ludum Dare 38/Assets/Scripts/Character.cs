@@ -2,53 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum JumpStatus {
+  Grounded,
+  Rising,
+  Hanging,
+  Falling
+}
+
+public enum ControlStatus {
+  Normal,
+  HitStun,
+  Launch
+}
+
 public class Character : MonoBehaviour {
 
+  // constants
   public float moveAcceleration;
+  public float moveMaxSpeed;
   public float moveResilience;
   public float turnSpeed;
   public float jumpHeight;
-    public float speed;
-  private int jumpStatus = 0; //0-ground 1-rising 2-hanging 3-falling
-  public float maxSpeed;
+
+  // state
+  protected float speed;
+  protected JumpStatus jumpStatus = JumpStatus.Grounded; //0-ground 1-rising 2-hanging 3-falling
+
+  // references to children
+  public Camera camera;
   public Transform character;
-  public int status = 0; //0-normal 1-hitstun 2-launch
+  public ControlStatus controlStatus = ControlStatus.Normal; //0-normal 1-hitstun 2-launch
 
   // Use this for initialization
-  void Start()
-  {
+  void Start() {
     this.GetComponent<Rigidbody>().centerOfMass = this.GetComponent<Transform>().position;
   }
 
 	// Update is called once per frame
 	protected void Update () {
-    if (speed < maxSpeed)
-    {
-      speed += moveAcceleration;
+    if (this.speed < this.moveMaxSpeed) {
+      this.speed += this.moveAcceleration;
     }
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
-    if (jumpStatus == 1)
-    {
-      //character.GetComponent<Transform>().position += character.GetComponent<Transform>().up;
-    } else if (jumpStatus == 2)
-    {
 
-    } else if (jumpStatus == 3)
-    {
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
+
+    if (this.jumpStatus == JumpStatus.Rising) {
+      //character.GetComponent<Transform>().position += character.GetComponent<Transform>().up;
+    } else if (this.jumpStatus == JumpStatus.Hanging) {
+
+    } else if (this.jumpStatus == JumpStatus.Falling) {
       //character.GetComponent<Transform>().position += character.GetComponent<Transform>().up;
     }
   }
 
   public void TurnLeft() {
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(-1 * turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(-1 * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
   public void TurnRight() {
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(1 * turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(1 * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
-  public void OnTriggerEnter(Collider other)
-  {
+  public void OnTriggerEnter(Collider other) {
     //add a check later to see WHAT is being collided with
     /*speed -= .5F;
     if(speed < 0)
@@ -57,54 +72,53 @@ public class Character : MonoBehaviour {
     }*/
     //time for "character" collision
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
-    status = 1;
+    this.controlStatus = ControlStatus.HitStun;
     StartCoroutine("LaunchStun");
   }
 
-  public void Jump()
-  {
-    jumpStatus = 1;
+  public void Jump() {
+    this.jumpStatus = JumpStatus.Rising;
     StartCoroutine("Rising");
     //maybe do an initiate-jump animation here
   }
 
-  IEnumerator LaunchStun()
-  {
-    for (int i = 0; i < 45; i++)
-    {
+  IEnumerator LaunchStun() {
+
+    for (int i = 0; i < 45; i++) {
       yield return null;
     }
-    status = 0;
+
+    this.controlStatus = ControlStatus.Normal;
   }
 
-  IEnumerator Rising()
-  {
-    for (int i = 0; i < 30; i++)
-    {
-      character.GetComponent<Transform>().localPosition += new Vector3(0, .1F, 0);
+  IEnumerator Rising() {
+
+    for (int i = 0; i < 30; i++) {
+      this.character.GetComponent<Transform>().localPosition += new Vector3(0, .1F, 0);
       yield return null;
     }
-    jumpStatus = 2;
+
+    this.jumpStatus = JumpStatus.Hanging;
     StartCoroutine("Hanging");
   }
 
-  IEnumerator Hanging()
-  {
-    for (int i = 0; i < 30; i++)
-    {
+  IEnumerator Hanging() {
+
+    for (int i = 0; i < 30; i++) {
       yield return null;
     }
-    jumpStatus = 3;
+
+    this.jumpStatus = JumpStatus.Falling;
     StartCoroutine("Falling");
   }
 
-  IEnumerator Falling()
-  {
-    for (int i = 0; i < 30; i++)
-    {
-      character.GetComponent<Transform>().localPosition += new Vector3(0, -.1F, 0);
+  IEnumerator Falling() {
+
+    for (int i = 0; i < 30; i++) {
+      this.character.GetComponent<Transform>().localPosition += new Vector3(0, -.1F, 0);
       yield return null;
     }
-    jumpStatus = 0;
+
+    this.jumpStatus = JumpStatus.Grounded;
   }
 }

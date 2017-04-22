@@ -234,13 +234,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b8ce933bd0142f4ac1a9d8d5650653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAcceleration: 0
-  moveResilience: 0
-  turnSpeed: 0
-  jumpHeight: 0
-  speed: 0
-  maxSpeed: 0
+  moveAcceleration: 0.001
+  moveMaxSpeed: 2
+  moveResilience: 1
+  turnSpeed: 1
+  jumpHeight: 1
+  camera: {fileID: 20603504117222610}
   character: {fileID: 4628983779461754}
+  controlStatus: 0
 --- !u!114 &114615311231131648
 MonoBehaviour:
   m_ObjectHideFlags: 1
