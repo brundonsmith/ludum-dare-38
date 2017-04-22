@@ -29,7 +29,6 @@ public class Character : MonoBehaviour {
   protected JumpStatus jumpStatus = JumpStatus.Grounded; //0-ground 1-rising 2-hanging 3-falling
 
   // references to children
-  public Camera camera;
   public Transform character;
   public ControlStatus controlStatus = ControlStatus.Normal; //0-normal 1-hitstun 2-launch
 

@@ -234,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38160c53d8ee440e4841e45567060d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: 0
+  camera: {fileID: 20603504117222610}
 --- !u!114 &114916874476410052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,7 +252,6 @@ MonoBehaviour:
   moveResilience: 1
   turnSpeed: 1
   jumpHeight: 1
-  camera: {fileID: 20603504117222610}
   character: {fileID: 4628983779461754}
   controlStatus: 0
 --- !u!124 &124433673780512478
