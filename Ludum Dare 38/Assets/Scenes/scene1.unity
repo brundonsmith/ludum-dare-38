@@ -147,17 +147,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114615311231131648, guid: 67713b895cb27482da35719ac04fea4a,
-        type: 2}
-      propertyPath: obstacleIconPrefab
-      value: 
-      objectReference: {fileID: 4538865376254974, guid: f709e9c4936894007974ad42fcc23db4,
-        type: 2}
-    - target: {fileID: 114724380284163252, guid: 67713b895cb27482da35719ac04fea4a,
-        type: 2}
-      propertyPath: moveAcceleration
-      value: 0.01
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67713b895cb27482da35719ac04fea4a, type: 2}
   m_IsPrefabParent: 0
