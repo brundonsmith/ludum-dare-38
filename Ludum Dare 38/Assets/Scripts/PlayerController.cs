@@ -10,13 +10,20 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-    if(Input.GetKey(KeyCode.LeftArrow)) {
-      this.GetComponent<Character>().TurnLeft();
-    } else if(Input.GetKey(KeyCode.RightArrow)) {
-      this.GetComponent<Character>().TurnRight();
-    } else if(Input.GetKeyDown(KeyCode.Space))
+    if (this.GetComponent<Character>().status == 0)
     {
-      this.GetComponent<Character>().Jump();
+      if (Input.GetKey(KeyCode.LeftArrow))
+      {
+        this.GetComponent<Character>().TurnLeft();
+      }
+      else if (Input.GetKey(KeyCode.RightArrow))
+      {
+        this.GetComponent<Character>().TurnRight();
+      }
+      else if (Input.GetKeyDown(KeyCode.Space))
+      {
+        this.GetComponent<Character>().Jump();
+      }
     }
 	}
 }

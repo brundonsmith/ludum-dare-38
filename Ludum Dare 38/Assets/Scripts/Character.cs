@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
   private int jumpStatus = 0; //0-ground 1-rising 2-hanging 3-falling
   public float maxSpeed;
   public Transform character;
+  public int status = 0; //0-normal 1-hitstun 2-launch
 
   // Use this for initialization
   void Start()
@@ -55,7 +56,9 @@ public class Character : MonoBehaviour {
       speed = 0;
     }*/
     //time for "character" collision
-
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    status = 1;
+    StartCoroutine("LaunchStun");
   }
 
   public void Jump()
@@ -63,6 +66,15 @@ public class Character : MonoBehaviour {
     jumpStatus = 1;
     StartCoroutine("Rising");
     //maybe do an initiate-jump animation here
+  }
+
+  IEnumerator LaunchStun()
+  {
+    for (int i = 0; i < 45; i++)
+    {
+      yield return null;
+    }
+    status = 0;
   }
 
   IEnumerator Rising()
