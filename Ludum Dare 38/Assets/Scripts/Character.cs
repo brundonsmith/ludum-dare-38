@@ -8,6 +8,8 @@ public class Character : MonoBehaviour {
   public float moveResilience;
   public float turnSpeed;
   public float jumpHeight;
+    public float speed;
+  private bool rising, hanging, falling;
 
 	// Use this for initialization
 	void Start () {
@@ -25,5 +27,10 @@ public class Character : MonoBehaviour {
 
   public void TurnRight() {
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(1 * turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+  }
+
+  public void Jump()
+  {
+    this.GetComponent<Rigidbody>().transform.position += this.GetComponent<Rigidbody>().transform.TransformDirection(Vector3.up);
   }
 }
