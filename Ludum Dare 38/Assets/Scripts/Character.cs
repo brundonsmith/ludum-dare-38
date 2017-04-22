@@ -49,7 +49,13 @@ public class Character : MonoBehaviour {
   public void OnTriggerEnter(Collider other)
   {
     //add a check later to see WHAT is being collided with
-    speed -= .5F;
+    /*speed -= .5F;
+    if(speed < 0)
+    {
+      speed = 0;
+    }*/
+    //time for "character" collision
+
   }
 
   public void Jump()
