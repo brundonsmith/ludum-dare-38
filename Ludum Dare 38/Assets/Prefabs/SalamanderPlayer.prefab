@@ -181,7 +181,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593518642413740}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 3604cd572dce04d3d9c5bce744b185ae, type: 3}
 --- !u!54 &54565063517081486
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -274,6 +274,7 @@ MonoBehaviour:
   skyCamera: {fileID: 0}
   character: {fileID: 4628983779461754}
   controlStatus: 0
+  specialStatus: 0
   standardPosition: {x: 0, y: 0, z: 0}
 --- !u!124 &124433673780512478
 Behaviour:
