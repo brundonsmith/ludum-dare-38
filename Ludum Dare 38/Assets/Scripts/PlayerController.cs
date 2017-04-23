@@ -62,6 +62,9 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    if(this.GetComponentInChildren<TextMesh>() != null) {
+      this.GetComponentInChildren<TextMesh>().text = this.GetComponent<Character>().speed + "/" + this.GetComponent<Character>().moveMaxSpeed;
+    }
 
     this.UpdateIcons();
 	}
