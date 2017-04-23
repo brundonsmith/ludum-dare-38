@@ -231,6 +231,8 @@ MonoBehaviour:
   camera: {fileID: 20603504117222610}
   obstacleIconPrefab: {fileID: 4538865376254974, guid: f709e9c4936894007974ad42fcc23db4,
     type: 2}
+  enemyIconPrefab: {fileID: 4538865376254974, guid: d2831fd33a0e743d783fa9136debddff,
+    type: 2}
 --- !u!114 &114724380284163252
 MonoBehaviour:
   m_ObjectHideFlags: 1
