@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 33032343752745128}
   - component: {fileID: 23915669369735406}
   - component: {fileID: 95493210922704744}
-  - component: {fileID: 136560708733151018}
   - component: {fileID: 114731977975911658}
   - component: {fileID: 114739018703039124}
+  - component: {fileID: 65535219415276890}
   m_Layer: 0
   m_Name: Building 2
   m_TagString: weakObstacle
@@ -84,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1016472463856912}
   m_Mesh: {fileID: 4300000, guid: a987e23a11f3bb148bea88f5708de20d, type: 3}
+--- !u!65 &65535219415276890
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1016472463856912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.009999998, y: 0.02912527, z: 0.010000002}
+  m_Center: {x: -0.0000000011641532, y: 0.009562636, z: 6.9849193e-10}
 --- !u!95 &95493210922704744
 Animator:
   serializedVersion: 3
@@ -125,16 +137,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86e0992ad8ef4edaa8a56bd9eeaa751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &136560708733151018
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1016472463856912}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.005000001
-  m_Height: 0.02912527
-  m_Direction: 1
-  m_Center: {x: -0.0000000011641532, y: 0.009562636, z: 6.9849193e-10}
