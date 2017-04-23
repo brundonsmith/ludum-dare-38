@@ -38,7 +38,6 @@ public class Character : MonoBehaviour {
 
   // Use this for initialization
   void Start() {
-    this.GetComponent<Rigidbody>().centerOfMass = this.GetComponent<Transform>().position;
     standardPosition = this.character.GetComponent<Transform>().localPosition;
   }
 
@@ -72,14 +71,26 @@ public class Character : MonoBehaviour {
 
   public void OnTriggerEnter(Collider other) {
     //add a check later to see WHAT is being collided with
-    speed -= decelSpeed;
-    if(speed < 0)
+    Debug.Log("triggered");
+    if (other.gameObject.tag == "weakObstacle")
     {
-      speed = 0;
+      speed -= decelSpeed * .7F;
+      if (speed < 0)
+      {
+        speed = 0;
+      }
+    } else if (other.gameObject.tag == "strongObstacle" || other.gameObject.tag == "enemy")
+    {
+      Debug.Log("launch!");
+      speed -= decelSpeed;
+      if (speed < 0)
+      {
+        speed = 0;
+      }
+      //time for "character" collision
+      this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
+      StartCoroutine("LaunchStun");
     }
-    //time for "character" collision
-    this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
-    StartCoroutine("LaunchStun");
   }
 
   public void Jump() {

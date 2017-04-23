@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23616951474890658}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 114615311231131648}
   m_Layer: 0
   m_Name: SquidPlayer
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,8 +239,10 @@ MonoBehaviour:
   moveResilience: 1
   turnSpeed: 1
   jumpHeight: 1
+  decelSpeed: 0
   character: {fileID: 4628983779461754}
   controlStatus: 0
+  standardPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &114615311231131648
 MonoBehaviour:
   m_ObjectHideFlags: 1
