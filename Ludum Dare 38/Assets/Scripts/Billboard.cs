@@ -13,7 +13,9 @@ public class Billboard : MonoBehaviour {
 
 	// Update is called once per frame
   void Update () {
-    this.GetComponent<Transform>().up = this.camera.GetComponent<Transform>().up;
-    this.GetComponent<Transform>().LookAt(this.camera.GetComponent<Transform>(), this.GetComponent<Transform>().up);
+    if(this.camera != null) {
+      this.GetComponent<Transform>().up = this.camera.GetComponent<Transform>().up;
+      this.GetComponent<Transform>().LookAt(this.camera.GetComponent<Transform>(), this.GetComponent<Transform>().up);
+    }
  }
 }

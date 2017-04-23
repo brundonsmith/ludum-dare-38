@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Billboard.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\CustomCamera.cs" />
+     <Compile Include="Assets\Scripts\DeleteTimer.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GenerateStars.cs" />
      <Compile Include="Assets\Scripts\MonkeyCharacter.cs" />

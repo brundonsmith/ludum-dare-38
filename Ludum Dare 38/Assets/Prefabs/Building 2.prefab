@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4bd2effc9304baa9ee0400e445f112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionEffectPrefab: {fileID: 1622519309844214, guid: 981623baf76024ca0862ae008112ec08,
+    type: 2}
 --- !u!114 &114739018703039124
 MonoBehaviour:
   m_ObjectHideFlags: 1

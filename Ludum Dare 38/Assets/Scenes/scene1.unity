@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e814813f9684428acbcb8dc267596b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayers: 1
+  numPlayers: 2
   playerOneCharacter: {fileID: 114724380284163252, guid: 67713b895cb27482da35719ac04fea4a,
     type: 2}
   playerTwoCharacter: {fileID: 114787357898649142, guid: 43867082cdf974ed881974bcb8041636,
