@@ -255,8 +255,10 @@ MonoBehaviour:
   moveResilience: 1
   turnSpeed: 1
   jumpHeight: 1
+  decelSpeed: 0.8
   character: {fileID: 4628983779461754}
   controlStatus: 0
+  standardPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &114749592612783288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -268,13 +270,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e245d4c01bd05948b80f0b95b9ccaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  character: {fileID: 0}
   controlStatus: 0
   tempAbsoluteLocation: {x: 0, y: 0, z: 0}
   standardLocation: {x: 0, y: 0, z: 0}
+  standardRotation: {x: 0, y: 0, z: 0, w: 0}
   savedOrientation: {x: 0, y: 0, z: 0, w: 0}
-  tempTransform: {fileID: 0}
 --- !u!124 &124433673780512478
 Behaviour:
   m_ObjectHideFlags: 1

@@ -24,6 +24,7 @@ public class Character : MonoBehaviour {
   public float moveResilience;
   public float turnSpeed;
   public float jumpHeight;
+  public float decelSpeed;
 
   // state
   protected float speed;
@@ -33,15 +34,19 @@ public class Character : MonoBehaviour {
   public Transform character;
   public ControlStatus controlStatus = ControlStatus.Normal; //0-normal 1-hitstun 2-launch
 
+  public Vector3 standardPosition;
+
   // Use this for initialization
   void Start() {
     this.GetComponent<Rigidbody>().centerOfMass = this.GetComponent<Transform>().position;
+    standardPosition = this.character.GetComponent<Transform>().localPosition;
   }
 
 	// Update is called once per frame
 	protected void Update () {
-    if (this.speed < this.moveMaxSpeed) {
+    if (this.speed < this.moveMaxSpeed && jumpStatus == JumpStatus.Grounded) {
       this.speed += this.moveAcceleration;
+     // if()
     }
 
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
@@ -56,49 +61,60 @@ public class Character : MonoBehaviour {
   }
 
   public void TurnLeft() {
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(-1 * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    float multiplier = jumpStatus == JumpStatus.Grounded ? 1F : 2F;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(-1 * multiplier * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
   public void TurnRight() {
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(1 * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    float multiplier = jumpStatus == JumpStatus.Grounded ? 1F : 2F;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(multiplier * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
   public void OnTriggerEnter(Collider other) {
     //add a check later to see WHAT is being collided with
-    /*speed -= .5F;
+    speed -= decelSpeed;
     if(speed < 0)
     {
       speed = 0;
-    }*/
+    }
     //time for "character" collision
-    Debug.Log("triggered");
     this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
-    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
-    this.controlStatus = ControlStatus.HitStun;
     StartCoroutine("LaunchStun");
   }
 
   public void Jump() {
+    if (jumpStatus != JumpStatus.Grounded) return;
+    speed -= decelSpeed;
+    if (speed < 0)
+    {
+      speed = 0;
+    }
     this.jumpStatus = JumpStatus.Rising;
-    this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Jump();
     StartCoroutine("Rising");
     //maybe do an initiate-jump animation here
     //camera control
   }
 
   IEnumerator LaunchStun() {
-
-    for (int i = 0; i < 45; i++) {
+    this.jumpStatus = JumpStatus.Hanging;
+    this.controlStatus = ControlStatus.HitStun;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    //reduce speed specificall bc of launch
+    for (int i = 0; i < 60; i++) {
+      this.character.GetComponent<Transform>().localPosition = new Vector3(standardPosition.x, standardPosition.y + Mathf.Sin(Mathf.PI / 60 * i),
+        standardPosition.z);
       yield return null;
     }
 
     this.controlStatus = ControlStatus.Normal;
+    this.jumpStatus = JumpStatus.Grounded;
   }
 
   IEnumerator Rising() {
 
-    for (int i = 0; i < 30; i++) {
-      this.character.GetComponent<Transform>().localPosition += new Vector3(0, .1F, 0);
+    for (int i = 0; i < 20; i++) {
+      this.character.GetComponent<Transform>().localPosition += new Vector3(0, .05F, 0);
+      this.character.GetComponent<Transform>().parent.GetComponentInChildren<CustomCamera>().RiseReact();
       yield return null;
     }
 
@@ -118,8 +134,9 @@ public class Character : MonoBehaviour {
 
   IEnumerator Falling() {
 
-    for (int i = 0; i < 30; i++) {
-      this.character.GetComponent<Transform>().localPosition += new Vector3(0, -.1F, 0);
+    for (int i = 0; i < 20; i++) {
+      this.character.GetComponent<Transform>().localPosition += new Vector3(0, -.05F, 0);
+      this.character.GetComponent<Transform>().parent.GetComponentInChildren<CustomCamera>().FallReact();
       yield return null;
     }
 

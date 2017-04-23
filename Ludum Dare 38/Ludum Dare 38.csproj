@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MonkeyCharacter.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
+    <Compile Include="Assets\Scripts\OrientToGround.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\SalamanderCharacter.cs" />
     <Compile Include="Assets\Scripts\SnekCharacter.cs" />

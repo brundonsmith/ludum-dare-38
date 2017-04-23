@@ -19,6 +19,7 @@ public class CustomCamera : MonoBehaviour {
   TransitionFloat transRotY;
   TransitionFloat transRotZ;
   TransitionFloat transRotW;
+  private bool lookingAt = false;
 
   // Use this for initialization
   void Start() {
@@ -32,18 +33,32 @@ public class CustomCamera : MonoBehaviour {
     if(controlStatus == ControlStatus.Launch)
     {
       this.GetComponent<Transform>().position = tempAbsoluteLocation;
-      this.GetComponent<Transform>().LookAt(this.GetComponent<Transform>().parent.FindChild("Character"));
+      if (lookingAt)
+      {
+        this.GetComponent<Transform>().LookAt(this.GetComponent<Transform>().parent.FindChild("Character"));
+      } else
+      {
+        this.GetComponent<Transform>().rotation = savedOrientation;
+      }
     }
   }
 
-  public void Jump() {
-    Debug.Log("jumping!");
-    this.GetComponent<Transform>().localPosition += new Vector3(0, 1, 0);
+  public void RiseReact()
+  {
+    var rot = Quaternion.AngleAxis(180, this.GetComponent<Transform>().right);
+    this.GetComponent<Transform>().position += rot * (this.GetComponent<Transform>().forward * .1F);
+  }
+
+  public void FallReact()
+  {
+    var rot = Quaternion.AngleAxis(0, this.GetComponent<Transform>().right);
+    this.GetComponent<Transform>().position += rot * (this.GetComponent<Transform>().forward * .1F);
   }
 
   public void Launch()
   {
     Debug.Log("trigger2");
+    lookingAt = false;
     controlStatus = ControlStatus.Launch;
     tempRotAxis = this.GetComponent<Transform>().right;
     tempForwardAxis = this.GetComponent<Transform>().forward;
@@ -56,7 +71,8 @@ public class CustomCamera : MonoBehaviour {
 
     for (int i = 0; i < 60; i++) {
       var rot = Quaternion.AngleAxis(180, tempRotAxis);
-      tempAbsoluteLocation += rot * (tempForwardAxis * .05F);
+      tempAbsoluteLocation += rot * (tempForwardAxis * .07F);
+      if (i == 40) lookingAt = true;
       yield return null;
     }
     controlStatus = ControlStatus.LaunchReturn;
