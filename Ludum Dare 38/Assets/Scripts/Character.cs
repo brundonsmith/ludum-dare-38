@@ -55,14 +55,6 @@ public class Character : MonoBehaviour {
     if (this.energy > this.maxEnergy) this.energy = this.maxEnergy;
     if (this.jumpStatus == JumpStatus.Grounded) this.character.GetComponent<Transform>().localPosition = standardPosition;
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
-
-    if (this.jumpStatus == JumpStatus.Rising) {
-      //character.GetComponent<Transform>().position += character.GetComponent<Transform>().up;
-    } else if (this.jumpStatus == JumpStatus.Hanging) {
-
-    } else if (this.jumpStatus == JumpStatus.Falling) {
-      //character.GetComponent<Transform>().position += character.GetComponent<Transform>().up;
-    }
   }
 
   public void TurnLeft() {
@@ -81,17 +73,45 @@ public class Character : MonoBehaviour {
     //add a check later to see WHAT is being collided with
     if (!this.canCollide) return;
     Debug.Log("triggered");
-    if (this.speed >= this.moveMaxSpeed)
+    if (other.gameObject.tag == "enemy")
     {
-      if (other.gameObject.tag == "weakObstacle")
+      if (this.speed >= this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed >= other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
+      {
+        //both at max speed
+
+      } else if (this.speed >= this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed < other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
+      {
+        //this guy at max speed
+        Debug.Log("player 1 wins!");
+        //what happens to the winner? nothing for now
+      } else if (this.speed < this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed >= other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
+      {
+        //that guy at max speed
+        getDefeated();
+      } else if (this.speed < this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed < other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
+      {
+
+      }
+    } else if (other.gameObject.tag == "weakObstacle")
+    {
+      if (this.speed < this.moveMaxSpeed)
       {
         speed -= decelSpeed * .5F;
         if (speed < 0)
         {
           speed = 0;
         }
+      } else
+      {
+        speed -= decelSpeed * .7F;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
       }
-      else if (other.gameObject.tag == "strongObstacle")
+    } else if (other.gameObject.tag == "strongObstacle")
+    {
+      if (this.speed >= this.moveMaxSpeed)
       {
         Debug.Log("launch!");
         speed -= decelSpeed * 7F;
@@ -103,32 +123,7 @@ public class Character : MonoBehaviour {
         this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
         StartCoroutine("LaunchStun");
       }
-      else if (other.gameObject.tag == "enemy")
-      {
-        //if enemy is at max speed as well
-        //whatever
-        //if they're not:
-        if(other.gameObject.GetComponentInParent<Character>().speed < other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
-        {
-          Debug.Log("player 1 wins!");
-          other.gameObject.GetComponentInParent<Character>().getDefeated();
-        }
-        else
-        {
-          //more complex code
-        }
-      }
-    } else
-    {
-      if (other.gameObject.tag == "weakObstacle")
-      {
-        speed -= decelSpeed * .7F;
-        if (speed < 0)
-        {
-          speed = 0;
-        }
-      }
-      else if (other.gameObject.tag == "strongObstacle" || other.gameObject.tag == "enemy")
+      else
       {
         Debug.Log("launch!");
         speed -= decelSpeed;
@@ -163,6 +158,7 @@ public class Character : MonoBehaviour {
 
   IEnumerator Defeated()
   {
+    Debug.Log("Being Defeated!!");
     this.jumpStatus = JumpStatus.Hanging;
     this.controlStatus = ControlStatus.HitStun;
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
