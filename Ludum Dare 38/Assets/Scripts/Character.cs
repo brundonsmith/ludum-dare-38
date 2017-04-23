@@ -31,6 +31,7 @@ public class Character : MonoBehaviour {
   public float turnSpeed;
   public float jumpHeight;
   public float decelSpeed;
+  public Camera skyCameraPrefab;
 
   // state
   public float speed;
@@ -39,6 +40,7 @@ public class Character : MonoBehaviour {
   protected float energy = 1000;
   public float chargeRate = 1;
   protected bool canCollide = true;
+  public Camera skyCamera;
 
   // references to children
   public Transform character;
@@ -46,6 +48,10 @@ public class Character : MonoBehaviour {
   public SpecialStatus specialStatus = SpecialStatus.NotUsingSpecial;
 
   public Vector3 standardPosition;
+
+  protected void Awake() {
+    this.skyCamera = GameObject.Instantiate(this.skyCameraPrefab.gameObject).GetComponent<Camera>();
+  }
 
   // Use this for initialization
   protected void Start() {
@@ -66,6 +72,8 @@ public class Character : MonoBehaviour {
     if (this.energy > this.maxEnergy) this.energy = this.maxEnergy;
     if (this.jumpStatus == JumpStatus.Grounded) this.character.GetComponent<Transform>().localPosition = standardPosition;
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
+
+    this.skyCamera.GetComponent<Transform>().localRotation = this.GetComponent<Transform>().localRotation;
   }
 
   public void TurnLeft() {
