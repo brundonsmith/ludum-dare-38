@@ -233,9 +233,12 @@ MonoBehaviour:
   turnSpeed: 1
   jumpHeight: 1
   decelSpeed: 0
+  skyCameraPrefab: {fileID: 20367690159511198, guid: 7fe4fbe86fa834e18a2a03b69b5f3ccb,
+    type: 2}
   speed: 0
   maxEnergy: 100
   chargeRate: 1
+  skyCamera: {fileID: 0}
   character: {fileID: 4628983779461754}
   controlStatus: 0
   standardPosition: {x: 0, y: 0, z: 0}
