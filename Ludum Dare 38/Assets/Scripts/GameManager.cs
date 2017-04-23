@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     playerOne.GetComponent<PlayerController>().player = Player.One;
 
     playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0, 1, 1);
+    playerOne.GetComponent<Character>().skyCamera.rect = new Rect(0, 0, 1, 1);
 
     if(numPlayers > 1) {
       GameObject playerTwo = GameObject.Instantiate(playerTwoCharacter.gameObject);
@@ -28,7 +29,9 @@ public class GameManager : MonoBehaviour {
       playerTwo.GetComponent<Transform>().rotation = new Quaternion(0, 160, 0, 0);
 
       playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
+      playerOne.GetComponent<Character>().skyCamera.rect = new Rect(0, 0.5f, 1, 0.5f);
       playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 1, 0.5f);
+      playerTwo.GetComponent<Character>().skyCamera.rect = new Rect(0, 0f, 1, 0.5f);
 
       if(numPlayers > 2) {
         GameObject playerThree = GameObject.Instantiate(playerThreeCharacter.gameObject);
@@ -36,8 +39,11 @@ public class GameManager : MonoBehaviour {
         playerThree.GetComponent<PlayerController>().player = Player.Three;
 
         playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
+        playerOne.GetComponent<Character>().skyCamera.rect = new Rect(0, 0.5f, 1, 0.5f);
         playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 0.5f, 0.5f);
+        playerTwo.GetComponent<Character>().skyCamera.rect = new Rect(0, 0f, 0.5f, 0.5f);
         playerThree.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
+        playerThree.GetComponent<Character>().skyCamera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
 
         if(numPlayers > 3) {
           GameObject playerFour = GameObject.Instantiate(playerFourCharacter.gameObject);
@@ -45,9 +51,13 @@ public class GameManager : MonoBehaviour {
           playerFour.GetComponent<PlayerController>().player = Player.Four;
 
           playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+          playerOne.GetComponent<Character>().skyCamera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
           playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+          playerTwo.GetComponent<Character>().skyCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
           playerThree.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 0.5f, 0.5f);
+          playerThree.GetComponent<Character>().skyCamera.rect = new Rect(0, 0f, 0.5f, 0.5f);
           playerFour.GetComponent<PlayerController>().camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
+          playerFour.GetComponent<Character>().skyCamera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
         }
       }
     }

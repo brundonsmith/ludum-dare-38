@@ -115,7 +115,7 @@ Camera:
   m_GameObject: {fileID: 1606215468384596}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.1102941, g: 0.1102941, b: 0.1102941, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -128,7 +128,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -229,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: 0
   camera: {fileID: 20603504117222610}
+  skyCamera: {fileID: 0}
   obstacleIconPrefab: {fileID: 4538865376254974, guid: f709e9c4936894007974ad42fcc23db4,
     type: 2}
   enemyIconPrefab: {fileID: 4538865376254974, guid: d2831fd33a0e743d783fa9136debddff,
