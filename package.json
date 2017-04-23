@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/brundonsmith/ludum-dare-38/issues"
   },
-  "homepage": "https://github.com/brundonsmith/ludum-dare-38#readme"
+  "homepage": "https://github.com/brundonsmith/ludum-dare-38#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
