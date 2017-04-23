@@ -32,6 +32,7 @@ public class Character : MonoBehaviour {
   public float jumpHeight;
   public float decelSpeed;
   public Camera skyCameraPrefab;
+  public float jumpCost;
 
   // state
   public float speed;
@@ -85,6 +86,23 @@ public class Character : MonoBehaviour {
   public void TurnRight() {
     float multiplier = jumpStatus == JumpStatus.Grounded ? 1F : 2F;
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(multiplier * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+  }
+
+  public void Jump()
+  {
+    if (jumpStatus == JumpStatus.Grounded && this.energy >= this.jumpCost)
+    {
+      this.energy -= this.jumpCost;
+      speed -= decelSpeed;
+      if (speed < 0)
+      {
+        speed = 0;
+      }
+      this.jumpStatus = JumpStatus.Rising;
+      StartCoroutine("Rising");
+    }
+    //maybe do an initiate-jump animation here
+    //camera control
   }
 
   public virtual void Special() { }
@@ -165,19 +183,6 @@ public class Character : MonoBehaviour {
         StartCoroutine("LaunchStun");
       }
     }
-  }
-
-  public void Jump() {
-    if (jumpStatus != JumpStatus.Grounded) return;
-    speed -= decelSpeed;
-    if (speed < 0)
-    {
-      speed = 0;
-    }
-    this.jumpStatus = JumpStatus.Rising;
-    StartCoroutine("Rising");
-    //maybe do an initiate-jump animation here
-    //camera control
   }
 
   public void getDefeated()

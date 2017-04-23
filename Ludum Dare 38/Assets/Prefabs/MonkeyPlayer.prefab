@@ -336,6 +336,7 @@ MonoBehaviour:
   decelSpeed: 0.8
   skyCameraPrefab: {fileID: 20367690159511198, guid: 7fe4fbe86fa834e18a2a03b69b5f3ccb,
     type: 2}
+  jumpCost: 0
   speed: 0
   maxEnergy: 100
   chargeRate: 1
