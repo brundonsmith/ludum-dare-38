@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4628983779461754}
-  - component: {fileID: 65370257356149150}
   - component: {fileID: 33132022498949848}
   - component: {fileID: 23616951474890658}
+  - component: {fileID: 65954053758167898}
   m_Layer: 0
   m_Name: Character
   m_TagString: enemy
@@ -72,7 +72,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1749183471135056}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -80,7 +80,7 @@ Transform:
   - {fileID: 4628983779461754}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!4 &4602954586409852
 Transform:
   m_ObjectHideFlags: 1
@@ -197,7 +197,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 14
   m_CollisionDetection: 1
---- !u!65 &65370257356149150
+--- !u!65 &65954053758167898
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -207,8 +207,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.0972059, y: 3.3738406, z: 3.6821914}
+  m_Center: {x: 0, y: -0.3298246, z: -0.06579716}
 --- !u!92 &92991838172125302
 Behaviour:
   m_ObjectHideFlags: 1
@@ -258,6 +258,7 @@ MonoBehaviour:
   skyCamera: {fileID: 0}
   character: {fileID: 4628983779461754}
   controlStatus: 0
+  specialStatus: 0
   standardPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &114749592612783288
 MonoBehaviour:

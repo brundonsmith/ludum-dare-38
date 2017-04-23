@@ -55,6 +55,7 @@ public class Character : MonoBehaviour {
 
   // Use this for initialization
   protected void Start() {
+    this.GetComponent<Rigidbody>().centerOfMass = Vector3.zero;
     standardPosition = this.character.GetComponent<Transform>().localPosition;
     maxEnergy = energy = 1000;
   }
