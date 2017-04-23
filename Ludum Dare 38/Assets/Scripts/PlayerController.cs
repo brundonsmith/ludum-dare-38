@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
   void UpdateIcons () {
-    // detect relevant objects within camera frustrum
+    // detect relevant objects
     // for each, create an icon if it doesn't have one
     // place as overlay sprite on the screen
     // for position,
@@ -81,9 +81,11 @@ public class PlayerController : MonoBehaviour {
           && obstacleViewportPosition.x < 1
           && obstacleViewportPosition.y > 0
           && obstacleViewportPosition.y < 1
-          && obstacleViewportPosition.z > 0) {
+          && obstacleViewportPosition.z > 0
+          && Vector3.Project(obstaclePosition, this.GetComponent<Transform>().Find("Character").forward).magnitude > 1 ) {
 
         if(this.icons.ContainsKey(obstacle.gameObject)) {
+          this.icons[obstacle.gameObject].SetActive(true);
           Vector3 directionFromCamera = (obstaclePosition - this.camera.GetComponent<Transform>().position).normalized;
           this.icons[obstacle.gameObject].GetComponent<Transform>().position = obstaclePosition - directionFromCamera * obstacleViewportPosition.z * 0.7f;
         } else {
@@ -99,6 +101,10 @@ public class PlayerController : MonoBehaviour {
           newIcon.GetComponent<Billboard>().camera = this.camera;
 
           this.icons[obstacle.gameObject] = newIcon;
+        }
+      } else {
+        if(this.icons.ContainsKey(obstacle.gameObject)) {
+          this.icons[obstacle.gameObject].SetActive(false);
         }
       }
     }
