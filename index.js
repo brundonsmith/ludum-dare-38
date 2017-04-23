@@ -14,6 +14,6 @@ app.get('*', function(request, response, next) {
     //Write your own angularJS index file location
 });
 
-app.listen(8080, function(){
-    console.log('Starting server at http://localhost:8080')
+app.listen(process.env.PORT || 5000, function(){
+    console.log('Starting server')
 });
