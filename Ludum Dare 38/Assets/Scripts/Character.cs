@@ -16,6 +16,12 @@ public enum ControlStatus {
   LaunchReturn
 }
 
+public enum SpecialStatus
+{
+  NotUsingSpecial,
+  UsingSpecial
+}
+
 public class Character : MonoBehaviour {
 
   // constants
@@ -29,27 +35,32 @@ public class Character : MonoBehaviour {
   // state
   public float speed;
   protected JumpStatus jumpStatus = JumpStatus.Grounded; //0-ground 1-rising 2-hanging 3-falling
-  public float maxEnergy = 100;
-  private float energy = 100;
+  public float maxEnergy = 1000;
+  protected float energy = 1000;
   public float chargeRate = 1;
   protected bool canCollide = true;
 
   // references to children
   public Transform character;
   public ControlStatus controlStatus = ControlStatus.Normal; //0-normal 1-hitstun 2-launch
+  public SpecialStatus specialStatus = SpecialStatus.NotUsingSpecial;
 
   public Vector3 standardPosition;
 
   // Use this for initialization
   protected void Start() {
     standardPosition = this.character.GetComponent<Transform>().localPosition;
+    maxEnergy = energy = 1000;
   }
 
 	// Update is called once per frame
 	protected void Update () {
     if (this.speed < this.moveMaxSpeed && jumpStatus == JumpStatus.Grounded) {
       this.speed += this.moveAcceleration;
-      this.energy += this.chargeRate;
+      if (this.specialStatus == SpecialStatus.NotUsingSpecial)
+      {
+        this.energy += this.chargeRate;
+      }
     }
     if (this.speed > this.moveMaxSpeed) this.speed = this.moveMaxSpeed;
     if (this.energy > this.maxEnergy) this.energy = this.maxEnergy;
@@ -67,7 +78,7 @@ public class Character : MonoBehaviour {
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(multiplier * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
-  public void Special() { }
+  public virtual void Special() { }
 
   public void OnTriggerEnter(Collider other) {
     //add a check later to see WHAT is being collided with
@@ -90,7 +101,16 @@ public class Character : MonoBehaviour {
         getDefeated();
       } else if (this.speed < this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed < other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
       {
-
+        //neither at max speed
+        Debug.Log("launch!");
+        speed -= decelSpeed;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
+        //time for "character" collision
+        this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
+        StartCoroutine("LaunchStun");
       }
     } else if (other.gameObject.tag == "weakObstacle")
     {
