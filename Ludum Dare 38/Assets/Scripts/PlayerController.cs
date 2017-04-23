@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
   public Player player = Player.One;
   public Camera camera;
   public Transform obstacleIconPrefab;
+  public Transform enemyIconPrefab;
 
   private Dictionary<GameObject, GameObject> icons = new Dictionary<GameObject, GameObject>();
 
@@ -74,9 +75,11 @@ public class PlayerController : MonoBehaviour {
     //    rotate to horizon based on current movement direction,
     //    then get camera coordinate
 
+    // Obstacles
     foreach(Obstacle obstacle in GameObject.FindObjectsOfType<Obstacle>()) {
       Vector3 obstaclePosition = obstacle.GetComponent<Transform>().position;
       Vector3 obstacleViewportPosition = this.camera.WorldToViewportPoint(obstaclePosition);
+
       if(obstacleViewportPosition.x > 0
           && obstacleViewportPosition.x < 1
           && obstacleViewportPosition.y > 0
@@ -86,21 +89,9 @@ public class PlayerController : MonoBehaviour {
 
         if(this.icons.ContainsKey(obstacle.gameObject)) {
           this.icons[obstacle.gameObject].SetActive(true);
-          Vector3 directionFromCamera = (obstaclePosition - this.camera.GetComponent<Transform>().position).normalized;
-          this.icons[obstacle.gameObject].GetComponent<Transform>().position = obstaclePosition - directionFromCamera * obstacleViewportPosition.z * 0.7f;
+          this.PositionIcon(obstacle.gameObject, this.icons[obstacle.gameObject]);
         } else {
-          GameObject newIcon = GameObject.Instantiate(this.obstacleIconPrefab.gameObject);
-
-          Vector3 directionFromCamera = (obstaclePosition - this.camera.GetComponent<Transform>().position).normalized;
-          newIcon.GetComponent<Transform>().position = obstaclePosition - directionFromCamera * obstacleViewportPosition.z * 0.7f;
-          int playerLayer = LayerMask.NameToLayer("Player " + this.player.ToString() + " Only");
-          newIcon.layer = playerLayer;
-          foreach(Transform child in newIcon.GetComponent<Transform>()) {
-            child.gameObject.layer = playerLayer;
-          }
-          newIcon.GetComponent<Billboard>().camera = this.camera;
-
-          this.icons[obstacle.gameObject] = newIcon;
+          this.icons[obstacle.gameObject] = this.CreateIcon(obstacle.gameObject, this.obstacleIconPrefab);
         }
       } else {
         if(this.icons.ContainsKey(obstacle.gameObject)) {
@@ -108,5 +99,55 @@ public class PlayerController : MonoBehaviour {
         }
       }
     }
+
+    // Enemies
+    foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("enemy")) {
+      if(enemy != this.gameObject) {
+        Vector3 enemyPosition = enemy.GetComponent<Transform>().position;
+        Vector3 enemyViewportPosition = this.camera.WorldToViewportPoint(enemyPosition);
+
+        if(enemyViewportPosition.x > 0
+            && enemyViewportPosition.x < 1
+            && enemyViewportPosition.y > 0
+            && enemyViewportPosition.y < 1
+            && enemyViewportPosition.z > 0
+            && Vector3.Project(enemyPosition, this.GetComponent<Transform>().Find("Character").forward).magnitude > 0.5 ) {
+
+          if(this.icons.ContainsKey(enemy)) {
+            this.icons[enemy].SetActive(true);
+            this.PositionIcon(enemy, this.icons[enemy]);
+          } else {
+            this.icons[enemy] = this.CreateIcon(enemy, this.enemyIconPrefab);
+          }
+        } else {
+          if(this.icons.ContainsKey(enemy)) {
+            this.icons[enemy].SetActive(false);
+          }
+        }
+      }
+    }
+  }
+
+  void PositionIcon (GameObject subject, GameObject icon) {
+    Vector3 subjectPosition = subject.GetComponent<Transform>().position;
+    Vector3 subjectViewportPosition = this.camera.WorldToViewportPoint(subjectPosition);
+    Vector3 directionFromCamera = (subjectPosition - this.camera.GetComponent<Transform>().position).normalized;
+
+    icon.GetComponent<Transform>().position = subjectPosition - directionFromCamera * subjectViewportPosition.z * 0.7f;
+  }
+
+  GameObject CreateIcon (GameObject subject, Transform iconPrefab) {
+    GameObject newIcon = GameObject.Instantiate(iconPrefab.gameObject);
+
+    this.PositionIcon(subject, newIcon);
+
+    int playerLayer = LayerMask.NameToLayer("Player " + this.player.ToString() + " Only");
+    newIcon.layer = playerLayer;
+    foreach(Transform child in newIcon.GetComponent<Transform>()) {
+      child.gameObject.layer = playerLayer;
+    }
+    newIcon.GetComponent<Billboard>().camera = this.camera;
+
+    return newIcon;
   }
 }
