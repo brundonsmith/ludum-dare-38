@@ -9,4 +9,9 @@ public class MonkeyCharacter : Character {
     base.Update();
     
   }
+
+  void Special()
+  {
+
+  }
 }

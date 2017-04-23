@@ -27,8 +27,12 @@ public class Character : MonoBehaviour {
   public float decelSpeed;
 
   // state
-  protected float speed;
+  public float speed;
   protected JumpStatus jumpStatus = JumpStatus.Grounded; //0-ground 1-rising 2-hanging 3-falling
+  public float maxEnergy = 100;
+  private float energy = 100;
+  public float chargeRate = 1;
+  protected bool canCollide = true;
 
   // references to children
   public Transform character;
@@ -37,7 +41,7 @@ public class Character : MonoBehaviour {
   public Vector3 standardPosition;
 
   // Use this for initialization
-  void Start() {
+  protected void Start() {
     standardPosition = this.character.GetComponent<Transform>().localPosition;
   }
 
@@ -45,9 +49,11 @@ public class Character : MonoBehaviour {
 	protected void Update () {
     if (this.speed < this.moveMaxSpeed && jumpStatus == JumpStatus.Grounded) {
       this.speed += this.moveAcceleration;
-     // if()
+      this.energy += this.chargeRate;
     }
-
+    if (this.speed > this.moveMaxSpeed) this.speed = this.moveMaxSpeed;
+    if (this.energy > this.maxEnergy) this.energy = this.maxEnergy;
+    if (this.jumpStatus == JumpStatus.Grounded) this.character.GetComponent<Transform>().localPosition = standardPosition;
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(speed, this.transform.right) * this.GetComponent<Rigidbody>().rotation;
 
     if (this.jumpStatus == JumpStatus.Rising) {
@@ -69,27 +75,71 @@ public class Character : MonoBehaviour {
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(multiplier * this.turnSpeed, this.transform.up) * this.GetComponent<Rigidbody>().rotation;
   }
 
+  public void Special() { }
+
   public void OnTriggerEnter(Collider other) {
     //add a check later to see WHAT is being collided with
+    if (!this.canCollide) return;
     Debug.Log("triggered");
-    if (other.gameObject.tag == "weakObstacle")
+    if (this.speed >= this.moveMaxSpeed)
     {
-      speed -= decelSpeed * .7F;
-      if (speed < 0)
+      if (other.gameObject.tag == "weakObstacle")
       {
-        speed = 0;
+        speed -= decelSpeed * .5F;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
       }
-    } else if (other.gameObject.tag == "strongObstacle" || other.gameObject.tag == "enemy")
+      else if (other.gameObject.tag == "strongObstacle")
+      {
+        Debug.Log("launch!");
+        speed -= decelSpeed * 7F;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
+        //time for "character" collision
+        this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
+        StartCoroutine("LaunchStun");
+      }
+      else if (other.gameObject.tag == "enemy")
+      {
+        //if enemy is at max speed as well
+        //whatever
+        //if they're not:
+        if(other.gameObject.GetComponentInParent<Character>().speed < other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
+        {
+          Debug.Log("player 1 wins!");
+          other.gameObject.GetComponentInParent<Character>().getDefeated();
+        }
+        else
+        {
+          //more complex code
+        }
+      }
+    } else
     {
-      Debug.Log("launch!");
-      speed -= decelSpeed;
-      if (speed < 0)
+      if (other.gameObject.tag == "weakObstacle")
       {
-        speed = 0;
+        speed -= decelSpeed * .7F;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
       }
-      //time for "character" collision
-      this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
-      StartCoroutine("LaunchStun");
+      else if (other.gameObject.tag == "strongObstacle" || other.gameObject.tag == "enemy")
+      {
+        Debug.Log("launch!");
+        speed -= decelSpeed;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
+        //time for "character" collision
+        this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
+        StartCoroutine("LaunchStun");
+      }
     }
   }
 
@@ -104,6 +154,24 @@ public class Character : MonoBehaviour {
     StartCoroutine("Rising");
     //maybe do an initiate-jump animation here
     //camera control
+  }
+
+  public void getDefeated()
+  {
+    StartCoroutine("Defeated");
+  }
+
+  IEnumerator Defeated()
+  {
+    this.jumpStatus = JumpStatus.Hanging;
+    this.controlStatus = ControlStatus.HitStun;
+    this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
+    for (int i = 0; i < 240; i++)
+    {
+      this.character.GetComponent<Transform>().localPosition += new Vector3(0, .1F, 0);
+      this.character.GetComponent<Transform>().parent.GetComponentInChildren<CustomCamera>().RiseReact();
+      yield return null;
+    }
   }
 
   IEnumerator LaunchStun() {

@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour {
             this.GetComponent<Character>().TurnRight();
           } else if (Input.GetKeyDown(KeyCode.UpArrow)) {
             this.GetComponent<Character>().Jump();
+          } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            this.GetComponent<Character>().Special();
           }
           break;
         case Player.Two:
@@ -50,6 +52,9 @@ public class PlayerController : MonoBehaviour {
             this.GetComponent<Character>().TurnRight();
           } else if (Input.GetKeyDown(KeyCode.W)) {
             this.GetComponent<Character>().Jump();
+          } else if (Input.GetKeyDown(KeyCode.S))
+          {
+            this.GetComponent<Character>().Special();
           }
           break;
       }

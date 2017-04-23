@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+    QualitySettings.vSyncCount = 0;
+    Application.targetFrameRate = 30;
     GameObject playerOne = GameObject.Instantiate(playerOneCharacter.gameObject);
     playerOne.GetComponent<Transform>().position = Vector3.zero;
     playerOne.GetComponent<PlayerController>().player = Player.One;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour {
       GameObject playerTwo = GameObject.Instantiate(playerTwoCharacter.gameObject);
       playerTwo.GetComponent<Transform>().position = Vector3.zero;
       playerTwo.GetComponent<PlayerController>().player = Player.Two;
+      playerTwo.GetComponent<Transform>().rotation = new Quaternion(0, 160, 0, 0);
 
       playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
       playerTwo.GetComponent<PlayerController>().camera.rect = new Rect(0, 0f, 1, 0.5f);
