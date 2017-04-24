@@ -65,10 +65,10 @@ public class Character : MonoBehaviour {
 	protected void Update () {
     if (this.speed < this.moveMaxSpeed && jumpStatus == JumpStatus.Grounded) {
       this.speed += this.moveAcceleration;
-      if (this.specialStatus == SpecialStatus.NotUsingSpecial)
-      {
-        this.energy += this.chargeRate;
-      }
+    }
+    if (this.specialStatus == SpecialStatus.NotUsingSpecial && jumpStatus == JumpStatus.Grounded)
+    {
+      this.energy += this.chargeRate;
     }
     if (this.speed > this.moveMaxSpeed) this.speed = this.moveMaxSpeed;
     if (this.energy > this.maxEnergy) this.energy = this.maxEnergy;
@@ -201,6 +201,40 @@ public class Character : MonoBehaviour {
       this.character.GetComponent<Transform>().localPosition += new Vector3(0, .1F, 0);
       this.character.GetComponent<Transform>().parent.GetComponentInChildren<CustomCamera>().RiseReact();
       yield return null;
+    }
+    //make yourself not alive
+    if(this.GetComponent<PlayerController>().player == Player.One)
+    {
+      Debug.Log("one died");
+      GameManager.playerOneAlive = false;
+    } else if (this.GetComponent<PlayerController>().player == Player.Two)
+    {
+      GameManager.playerTwoAlive = false;
+    } else if (this.GetComponent<PlayerController>().player == Player.Three)
+    {
+      GameManager.playerThreeAlive = false;
+    } else if (this.GetComponent<PlayerController>().player == Player.Four)
+    {
+      GameManager.playerFourAlive = false;
+    }
+    //check if the game is over now
+    if (GameManager.playerOneAlive && !GameManager.playerTwoAlive && !GameManager.playerThreeAlive && !GameManager.playerFourAlive)
+    {
+      //player one wins!
+      GameManager.playerWins = 1;
+    } else if (!GameManager.playerOneAlive && GameManager.playerTwoAlive && !GameManager.playerThreeAlive && !GameManager.playerFourAlive)
+    {
+      //player two wins!
+      Debug.Log("playertwowins");
+      GameManager.playerWins = 2;
+    } else if (!GameManager.playerOneAlive && !GameManager.playerTwoAlive && GameManager.playerThreeAlive && !GameManager.playerFourAlive)
+    {
+      //player three wins!
+      GameManager.playerWins = 3;
+    } else if (!GameManager.playerOneAlive && !GameManager.playerTwoAlive && !GameManager.playerThreeAlive && GameManager.playerFourAlive)
+    {
+      //player four wins!
+      GameManager.playerWins = 4;
     }
   }
 
