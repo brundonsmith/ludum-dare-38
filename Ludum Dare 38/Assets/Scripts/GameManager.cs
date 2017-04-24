@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
   public int numPlayers = 2;
+  public bool AIEnabled = false;
 
   public Character playerOneCharacter;
   public Character playerTwoCharacter;
@@ -30,6 +31,11 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     UnityEngine.Cursor.visible = false;
+    if (GameObject.Find("TitleScreenController") != null)
+    {
+      numPlayers = GameObject.Find("TitleScreenController").GetComponent<TitleScreenController>().numPlayersSelected;
+      AIEnabled = GameObject.Find("TitleScreenController").GetComponent<TitleScreenController>().AISelected;
+    }
     QualitySettings.vSyncCount = 0;
     Application.targetFrameRate = 60;
     playerOne = GameObject.Instantiate(playerOneCharacter.gameObject);
@@ -136,7 +142,7 @@ public class GameManager : MonoBehaviour {
 
   IEnumerator ReturnToTitle()
   {
-
+    Destroy(GameObject.Find("TitleScreenController"));
     for (int i = 0; i < 180; i++)
     {
       yield return null;

@@ -7,6 +7,7 @@ public class TitleScreenController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     UnityEngine.Cursor.visible = true;
+    DontDestroyOnLoad(transform.gameObject);
 	}
 	
   public void StartGame ()

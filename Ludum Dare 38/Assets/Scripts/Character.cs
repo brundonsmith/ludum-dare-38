@@ -61,8 +61,8 @@ public class Character : MonoBehaviour {
     maxEnergy = energy = 1000;
   }
 
-	// Update is called once per frame
-	protected void Update () {
+  // Update is called once per frame
+  protected void Update() {
     if (this.speed < this.moveMaxSpeed && jumpStatus == JumpStatus.Grounded) {
       this.speed += this.moveAcceleration;
     }
@@ -116,7 +116,14 @@ public class Character : MonoBehaviour {
       if (this.speed >= this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed >= other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
       {
         //both at max speed
-
+        speed -= decelSpeed;
+        if (speed < 0)
+        {
+          speed = 0;
+        }
+        //time for "character" collision
+        this.GetComponentInParent<PlayerController>().GetComponentInChildren<CustomCamera>().Launch();
+        StartCoroutine("LaunchStun");
       } else if (this.speed >= this.moveMaxSpeed && other.gameObject.GetComponentInParent<Character>().speed < other.gameObject.GetComponentInParent<Character>().moveMaxSpeed)
       {
         //this guy at max speed
