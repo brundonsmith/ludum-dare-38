@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour {
     if(this.GetComponentInChildren<TextMesh>() != null) {
       this.GetComponentInChildren<TextMesh>().text = Mathf.Round(this.GetComponent<Character>().speed * 40) + "/" + Mathf.Round(this.GetComponent<Character>().moveMaxSpeed * 40);
     }
+    if(this.GetComponent<Transform>().Find("Fill") != null) {
+      Character characterComponent = this.GetComponent<Character>();
+      this.GetComponent<Transform>().Find("Fill").localScale = new Vector3(characterComponent.energy / characterComponent.maxEnergy, 1, 1);
+    }
 
     this.UpdateIcons();
 	}

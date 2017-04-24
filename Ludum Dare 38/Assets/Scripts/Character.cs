@@ -38,7 +38,7 @@ public class Character : MonoBehaviour {
   public float speed;
   protected JumpStatus jumpStatus = JumpStatus.Grounded; //0-ground 1-rising 2-hanging 3-falling
   public float maxEnergy = 1000;
-  protected float energy = 1000;
+  public float energy = 1000;
   public float chargeRate = 1;
   protected bool canCollide = true;
   public Camera skyCamera;
