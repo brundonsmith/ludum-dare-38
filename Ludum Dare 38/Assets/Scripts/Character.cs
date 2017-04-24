@@ -161,7 +161,7 @@ public class Character : MonoBehaviour {
       if (this.speed >= this.moveMaxSpeed)
       {
         Debug.Log("launch!");
-        speed -= decelSpeed * 7F;
+        speed -= decelSpeed * .7F;
         if (speed < 0)
         {
           speed = 0;
@@ -192,6 +192,7 @@ public class Character : MonoBehaviour {
 
   IEnumerator Defeated()
   {
+    this.canCollide = false;
     Debug.Log("Being Defeated!!");
     this.jumpStatus = JumpStatus.Hanging;
     this.controlStatus = ControlStatus.HitStun;
@@ -239,6 +240,7 @@ public class Character : MonoBehaviour {
   }
 
   IEnumerator LaunchStun() {
+    this.canCollide = false;
     this.jumpStatus = JumpStatus.Hanging;
     this.controlStatus = ControlStatus.HitStun;
     this.GetComponent<Rigidbody>().rotation = Quaternion.AngleAxis(Random.Range(0, 360), this.transform.up) * this.GetComponent<Rigidbody>().rotation;
@@ -251,6 +253,7 @@ public class Character : MonoBehaviour {
 
     this.controlStatus = ControlStatus.Normal;
     this.jumpStatus = JumpStatus.Grounded;
+    this.canCollide = true;
   }
 
   IEnumerator Rising() {

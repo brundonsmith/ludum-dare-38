@@ -29,8 +29,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+    UnityEngine.Cursor.visible = false;
     QualitySettings.vSyncCount = 0;
-    Application.targetFrameRate = 30;
+    Application.targetFrameRate = 60;
     playerOne = GameObject.Instantiate(playerOneCharacter.gameObject);
     playerOne.GetComponent<Transform>().position = Vector3.zero;
     playerOne.GetComponent<PlayerController>().player = Player.One;
@@ -130,5 +131,16 @@ public class GameManager : MonoBehaviour {
     {
       winner1.sprite = winner2.sprite = winner3.sprite = winner4.sprite = playerFourWinsSprite;
     }
+    StartCoroutine("ReturnToTitle");
+  }
+
+  IEnumerator ReturnToTitle()
+  {
+
+    for (int i = 0; i < 180; i++)
+    {
+      yield return null;
+    }
+    UnityEngine.SceneManagement.SceneManager.LoadScene("titleScreen");
   }
 }
