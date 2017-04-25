@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\SalamanderCharacter.cs" />
      <Compile Include="Assets\Scripts\SnekCharacter.cs" />
      <Compile Include="Assets\Scripts\SquidCharacter.cs" />
+     <Compile Include="Assets\Scripts\TitleScreenController.cs" />
      <Compile Include="Assets\Scripts\TransitionFloat.cs" />
      <Compile Include="Assets\Scripts\TransitionTransform.cs" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
