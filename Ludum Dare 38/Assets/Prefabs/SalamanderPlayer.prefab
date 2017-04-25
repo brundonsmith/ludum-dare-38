@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1194540721408950
 GameObject:
   m_ObjectHideFlags: 1
@@ -464,18 +464,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveAcceleration: 0.01
-  moveMaxSpeed: 2
+  moveMaxSpeed: 2.3
   moveResilience: 1
-  turnSpeed: 1
+  turnSpeed: 1.1
   jumpHeight: 1
-  decelSpeed: 0.8
+  decelSpeed: 0.7
   skyCameraPrefab: {fileID: 20367690159511198, guid: 7fe4fbe86fa834e18a2a03b69b5f3ccb,
     type: 2}
   jumpCost: 0
   speed: 0
   maxEnergy: 100
   energy: 1000
-  chargeRate: 1
+  chargeRate: 1.07
   skyCamera: {fileID: 0}
   character: {fileID: 4628983779461754}
   controlStatus: 0

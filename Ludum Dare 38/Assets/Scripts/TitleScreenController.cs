@@ -19,10 +19,21 @@ public class TitleScreenController : MonoBehaviour {
   public void OnePlayer()
   {
     numPlayersSelected = 1;
+    GameObject.Find("purpler").GetComponent<Transform>().position = new Vector3(GameObject.Find("purpler").GetComponent<Transform>().position.x,
+      263, GameObject.Find("purpler").GetComponent<Transform>().position.z);
   }
-  public void TwoPlayer() { numPlayersSelected = 2; }
-  public void ThreePlayer() { numPlayersSelected = 3; }
-  public void FourPlayer() { numPlayersSelected = 4; }
+  public void TwoPlayer() { numPlayersSelected = 2;
+    GameObject.Find("purpler").GetComponent<Transform>().position = new Vector3(GameObject.Find("purpler").GetComponent<Transform>().position.x,
+      259, GameObject.Find("purpler").GetComponent<Transform>().position.z);
+  }
+  public void ThreePlayer() { numPlayersSelected = 3;
+    GameObject.Find("purpler").GetComponent<Transform>().position = new Vector3(GameObject.Find("purpler").GetComponent<Transform>().position.x,
+      229, GameObject.Find("purpler").GetComponent<Transform>().position.z);
+  }
+  public void FourPlayer() { numPlayersSelected = 4;
+    GameObject.Find("purpler").GetComponent<Transform>().position = new Vector3(GameObject.Find("purpler").GetComponent<Transform>().position.x,
+      200, GameObject.Find("purpler").GetComponent<Transform>().position.z);
+  }
   public void AIOn() { AISelected = true; }
   public void AIOff() { AISelected = false; }
 	// Update is called once per frame

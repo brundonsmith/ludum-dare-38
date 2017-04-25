@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour {
         playerThree = GameObject.Instantiate(playerThreeCharacter.gameObject);
         playerThree.GetComponent<Transform>().position = Vector3.zero;
         playerThree.GetComponent<PlayerController>().player = Player.Three;
+        playerTwo.GetComponent<Transform>().rotation = new Quaternion(0, 240, 0, 0);
 
         playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 1, 0.5f);
         playerOne.GetComponent<Character>().skyCamera.rect = new Rect(0, 0.5f, 1, 0.5f);
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour {
           playerFour = GameObject.Instantiate(playerFourCharacter.gameObject);
           playerFour.GetComponent<Transform>().position = Vector3.zero;
           playerFour.GetComponent<PlayerController>().player = Player.Four;
+          playerTwo.GetComponent<Transform>().rotation = new Quaternion(0, 80, 0, 0);
 
           playerOne.GetComponent<PlayerController>().camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
           playerOne.GetComponent<Character>().skyCamera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
