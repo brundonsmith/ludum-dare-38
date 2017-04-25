@@ -601,7 +601,7 @@ SphereCollider:
   m_GameObject: {fileID: 550927022}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -754,7 +754,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4212457057182866, guid: 487316f8b51054273a0fecf5dc3205de, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.84183276
+      value: 0.84183264
       objectReference: {fileID: 0}
     - target: {fileID: 4212457057182866, guid: 487316f8b51054273a0fecf5dc3205de, type: 2}
       propertyPath: m_RootOrder
@@ -2263,7 +2263,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4182587734128964, guid: 35c12ea6eaad84dd89f2e40ca5fb1700, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.71233267
+      value: 0.7123327
       objectReference: {fileID: 0}
     - target: {fileID: 4182587734128964, guid: 35c12ea6eaad84dd89f2e40ca5fb1700, type: 2}
       propertyPath: m_RootOrder
