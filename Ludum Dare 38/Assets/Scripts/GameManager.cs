@@ -87,13 +87,27 @@ public class GameManager : MonoBehaviour {
         }
       }
     }
-
-	}
+    int audio = Random.Range(1, 4);
+    if(audio == 1)
+    {
+      GameObject.Find("track1").GetComponent<AudioSource>().Play();
+    } else if (audio == 2)
+    {
+      GameObject.Find("track2").GetComponent<AudioSource>().Play();
+    } else if (audio == 3)
+    {
+      GameObject.Find("track3").GetComponent<AudioSource>().Play();
+    }
+  }
 
 	// Update is called once per frame
 	void Update () {
     if (playerWins != 0)
     {
+      GameObject.Find("track1").GetComponent<AudioSource>().Stop();
+      GameObject.Find("track2").GetComponent<AudioSource>().Stop();
+      GameObject.Find("track3").GetComponent<AudioSource>().Stop();
+      GameObject.Find("gameover").GetComponent<AudioSource>().Play();
       GameOver();
       playerWins = 0;
     }
@@ -143,7 +157,7 @@ public class GameManager : MonoBehaviour {
   IEnumerator ReturnToTitle()
   {
     Destroy(GameObject.Find("TitleScreenController"));
-    for (int i = 0; i < 180; i++)
+    for (int i = 0; i < 360; i++)
     {
       yield return null;
     }
